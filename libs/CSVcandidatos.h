@@ -16,6 +16,13 @@
 #ifndef CSVCANDIDATOS_H
 #define CSVCANDIDATOS_H
 
+class CSVcandidatos {
+   static string diretorio_arq_cand;
+
+   public:
+   static void candidatosReader(string tipo_deputado, string arquivo_cand, string data_eleicao,
+            map<int, Candidato> candidatos, map<int, Partido> partidos);
+};
 
 
 #endif

@@ -32,3 +32,78 @@ Candidato::Candidato(int cd_cargo, int cd_situacao_candidato_tot, int nr_candida
     }
 }
 
+int &Candidato::getCd_cargo() const {
+    return (int &) cd_cargo;
+}
+
+int &Candidato::getCd_situacao_candidato_tot() const {
+    return (int &) cd_situacao_candidato_tot;
+}
+
+int &Candidato::getNr_candidato() const {
+    return (int &) nr_candidato;
+}
+
+string &Candidato::getNm_urna_candidato() const {
+    return (string &) nm_urna_candidato;
+}
+
+int &Candidato::getNr_partido() const {
+    return (int &) nr_partido;
+}
+
+string &Candidato::getSg_partido() const {
+    return (string &) sg_partido;
+}
+
+int &Candidato::getNr_federacao() const {
+    return (int &) nr_federacao;
+}
+
+string &Candidato::getDt_nascimento() const {
+    return (string &) dt_nascimento;
+}
+
+int &Candidato::getCd_sit_tot_turno() const {
+    return (int &) cd_sit_tot_turno;
+}
+
+Genero &Candidato::getCd_genero() const {
+    return (Genero &) cd_genero;
+}
+
+bool &Candidato::getNm_tipo_destinacao_votos() const {
+    return (bool &) nm_tipo_destinacao_votos;
+}
+
+void Candidato::setIdade(const string dataEleicao) {
+    int anoEleicao = stoi(dataEleicao.substr(0, 4));
+    int anoNascimento = stoi(dt_nascimento.substr(0, 4));
+    this->idade = anoEleicao - anoNascimento;
+}
+
+int &Candidato::getIdade() const {
+    return (int &) idade;
+}
+
+void Candidato::addVotos(int n_votos) {
+    this->qtd_votos += n_votos;
+}
+
+int &Candidato::getQtd_votos() const {
+    return (int &) qtd_votos;
+}
+
+/*
+void imprimeCandidato() {
+    cout << "Candidato: " << nm_urna_candidato << endl;
+    cout << "Idade: " << idade << endl;
+    cout << "Partido: " << sg_partido << endl;
+    cout << "Número: " << nr_candidato << endl;
+    cout << "Votos: " << qtd_votos << endl;
+    cout << "-----------------------------------" << endl;
+}
+*/
+
+
+
