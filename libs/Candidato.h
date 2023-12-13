@@ -5,6 +5,11 @@
 #include <iostream>
 using namespace std;
 
+enum Genero {
+    MASCULINO,
+    FEMININO
+};
+
 class Candidato {
     int cd_cargo;
     int cd_situacao_candidato_tot;
@@ -15,8 +20,8 @@ class Candidato {
     int nr_federacao;
     string dt_nascimento;
     int cd_sit_tot_turno;
-    int cd_genero;
-    string nm_tipo_destinacao_votos;
+    Genero cd_genero;
+    bool nm_tipo_destinacao_votos;
 
     int qtd_votos = 0;
     int idade = 0;
