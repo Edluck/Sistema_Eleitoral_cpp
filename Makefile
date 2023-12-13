@@ -21,13 +21,13 @@ FONTES = $(wildcard *.cpp)
 OBJETOS = $(FONTES:.cpp=.o)
 
 # nome do arquivo executável
-EXECUTAVEL = deputados
+EXECUTAVEL = main
 
 ############ alvos
 #
 # use @ antes de todos os comandos, pois é necessário no script de teste
 #
-
+make: all
 # alvo principal é o executável
 all: $(EXECUTAVEL)
 

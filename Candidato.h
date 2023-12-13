@@ -42,7 +42,7 @@ class Candidato {
     int &getCd_sit_tot_turno() const;
     Genero &getCd_genero() const;
     bool &getNm_tipo_destinacao_votos() const;
-    void setIdade(const string dataEleicao);
+    void setIdade(const string &dataEleicao);
     int &getIdade() const;
     void addVotos(int n_votos) ;
     int &getQtd_votos() const;

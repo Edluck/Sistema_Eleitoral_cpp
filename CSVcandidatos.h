@@ -15,6 +15,8 @@
 
 #ifndef CSVCANDIDATOS_H
 #define CSVCANDIDATOS_H
+#include "Partido.h"
+#include "Candidato.h"
 
 class CSVcandidatos {
    static string diretorio_arq_cand;

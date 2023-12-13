@@ -13,14 +13,14 @@ int main(int argc, char *argv[]) {
     string arq_cand = argv[2];
     string arq_vot = argv[3];
     string data_eleicao = argv[4];
-    
+
     cout << tipo_deputado << endl;
     cout << arq_cand << endl;
     cout << arq_vot << endl;
     cout << data_eleicao << endl;
-    /*
+    
     Acervo acervo(tipo_deputado, arq_cand, arq_vot, data_eleicao);
     acervo.geraRelatorio(tipo_deputado);
-    */
+    
     return 0;
 }

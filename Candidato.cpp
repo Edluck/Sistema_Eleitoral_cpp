@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "libs/Candidato.h"
+#include "Candidato.h"
 
 using namespace std;
 
@@ -76,7 +76,7 @@ bool &Candidato::getNm_tipo_destinacao_votos() const {
     return (bool &) nm_tipo_destinacao_votos;
 }
 
-void Candidato::setIdade(const string dataEleicao) {
+void Candidato::setIdade(const string &dataEleicao) {
     int anoEleicao = stoi(dataEleicao.substr(0, 4));
     int anoNascimento = stoi(dt_nascimento.substr(0, 4));
     this->idade = anoEleicao - anoNascimento;
