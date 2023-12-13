@@ -41,7 +41,7 @@ class Candidato {
     string getDt_nascimento();
     int getCd_sit_tot_turno();
     int getCd_genero();
-    string getNm_tipo_destinacao_votos();
+    bool getNm_tipo_destinacao_votos();
     void setIdade(string dataEleicao);
     int getIdade();
     void addVotos(int n_votos);
