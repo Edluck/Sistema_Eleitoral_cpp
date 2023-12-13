@@ -5,6 +5,7 @@
 #include "CSVcandidatos.h"
 #include "CSVvotacao.h"
 #include "GeraRelatorios.h"
+#include <map>
 
 class Acervo {
     map<int,Candidato> candidatos;
