@@ -10,5 +10,5 @@ Acervo::Acervo(string tipo_deputado, string arq_cand, string arq_vot, string dat
 }
 
 void Acervo::geraRelatorio(string tipo_deputado) {
-   // GeraRelatorios::geraRelatorio(tipo_deputado, this->candidatos, this->partidos);
+    GeraRelatorios::geraRelatorio(tipo_deputado, this->candidatos, this->partidos);
 }

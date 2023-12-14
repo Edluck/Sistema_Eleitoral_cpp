@@ -80,7 +80,6 @@ void Candidato::setIdade(const string &dataEleicao) {
     int anoEleicao = stoi(dataEleicao.substr(0, 4));
     int anoNascimento = stoi(dt_nascimento.substr(0, 4));
     this->idade = anoEleicao - anoNascimento;
-    cout << "Idade: " << idade << " " << dataEleicao << " " << dt_nascimento << endl;
 }
 
 int &Candidato::getIdade() const {

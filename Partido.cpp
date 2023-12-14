@@ -28,6 +28,13 @@ void Partido::addVotosLegenda(int votos) {
     this->votos_legenda += votos;   
 }
 
+void Partido::addVotosNominaisTotal() {
+    for(auto &candidatos : this->candidatos) {
+        if(candidatos.second.getCd_situacao_candidato_tot() == 2 || candidatos.second.getCd_situacao_candidato_tot() == 16)
+        this->votos_nominais_total += candidatos.second.getQtd_votos();
+    }
+}
+
 int &Partido::getVotosLegenda() const {
     return (int &) votos_legenda;
 }

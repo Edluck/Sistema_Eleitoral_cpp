@@ -89,8 +89,10 @@ void CSVcandidatos::candidatosReader(const string &tipo_deputado, const string &
                 
                 //insere o candidato na lista de candidatos... 
                 candidatos.insert(pair<int, Candidato>(stoi(linhaSplit[16]), c));
+                //cout << c.getCd_cargo() << " " << c.getNm_urna_candidato() << endl;
                 //...e no seu respectivo partido.
                 partidos[stoi(linhaSplit[27])].addCandidato(c);
+
             }
 
             
@@ -98,8 +100,11 @@ void CSVcandidatos::candidatosReader(const string &tipo_deputado, const string &
             //proxima linha
             linhaAtual++;
         }
-
+        
         inputStream.close();
+        for(auto &c1 : candidatos) {
+            cout << c1.second.getCd_cargo() << " " << c1.second.getNm_urna_candidato() << endl;
+        }
     }
     catch (const invalid_argument &e)
     {

@@ -19,6 +19,7 @@ public:
     int &getVotosTotais() const;
     int &getVotosNominaisTotal() const;
     void addVotosLegenda(int votos);
+    void addVotosNominaisTotal();
     int &getVotosLegenda() const;
     string &getSg_partido() const;
     int &getNr_partido() const;
