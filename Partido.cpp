@@ -30,6 +30,7 @@ void Partido::addVotosLegenda(int votos) {
 
 void Partido::addVotosNominaisTotal() {
     for(auto &candidatos : this->candidatos) {
+        cout << candidatos.second.getNm_urna_candidato() << " " << candidatos.second.getQtd_votos() << endl;
         if(candidatos.second.getCd_situacao_candidato_tot() == 2 || candidatos.second.getCd_situacao_candidato_tot() == 16)
         this->votos_nominais_total += candidatos.second.getQtd_votos();
     }
@@ -47,6 +48,10 @@ const int &Partido::getNr_partido() const {
     return nr_partido;
 }
 
-void Partido::addCandidato(Candidato c) {
+const map<int, Candidato> &Partido::getCandidatos() const {
+    return candidatos;
+}
+
+void Partido::addCandidato(const Candidato &c) {
     this->candidatos.insert(pair<int, Candidato>(c.getNr_candidato(), c));
 }

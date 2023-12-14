@@ -77,24 +77,24 @@ void CSVvotacao::votacaoReader(const string &tipo_deputado,const string &arquivo
             {
                 if (tipo_deputado_int == stoi(linhaSplit[17]))
                 {
-                    if (candidatos.find(nr_notavel) != candidatos.end())
+                    if (candidatos.count(nr_notavel))
                     {
-                        if (candidatos[nr_notavel].getNm_tipo_destinacao_votos())
+                        if (candidatos.find(nr_notavel)->second.getNm_tipo_destinacao_votos())
                         {
                             //adiciona votos de legenda ao partido do candidato
-                            partidos[candidatos[nr_notavel].getNr_partido()].addVotosLegenda(stoi(linhaSplit[21]));
+                            partidos[candidatos.find(nr_notavel)->second.getNr_partido()].addVotosLegenda(stoi(linhaSplit[21]));
                         }
                         else
                         {
-                            if (candidatos[nr_notavel].getCd_situacao_candidato_tot() == 2 || candidatos[nr_notavel].getCd_situacao_candidato_tot() == 16)
+                            if (candidatos.find(nr_notavel)->second.getCd_situacao_candidato_tot() == 2 || candidatos.find(nr_notavel)->second.getCd_situacao_candidato_tot() == 16)
                             {
-                                candidatos[nr_notavel].addVotos(stoi(linhaSplit[21]));
+                                candidatos.find(nr_notavel)->second.addVotos(stoi(linhaSplit[21]));
                             }
                         }
                     }
-                    else if(partidos.find(nr_notavel) != partidos.end())
+                    else if(partidos.count(nr_notavel))
                     {
-                        partidos[nr_notavel].addVotosLegenda(stoi(linhaSplit[21]));
+                        partidos.find(nr_notavel)->second.addVotosLegenda(stoi(linhaSplit[21]));
                     }
                 }
             }

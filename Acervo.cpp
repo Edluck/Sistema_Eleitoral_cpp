@@ -4,6 +4,12 @@
 using namespace std;
 
 Acervo::Acervo(string tipo_deputado, string arq_cand, string arq_vot, string data_eleicao) {
+    map<int, Candidato> c = {};
+    this->candidatos = c;
+    
+    map<int, Partido> p = {};
+    this->partidos = p;
+    
 
     CSVcandidatos::candidatosReader(tipo_deputado, arq_cand, data_eleicao, this->candidatos, this->partidos);
     CSVvotacao::votacaoReader(tipo_deputado, arq_vot,  this->candidatos, this->partidos);

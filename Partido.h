@@ -23,7 +23,7 @@ public:
     const int &getVotosLegenda() const;
     const string &getSg_partido() const;
     const int &getNr_partido() const;
-    void addCandidato(Candidato c);
+    void addCandidato(const Candidato &c);
     const map<int, Candidato> &getCandidatos() const;
 };
 

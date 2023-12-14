@@ -24,8 +24,8 @@ Candidato::Candidato(int cd_cargo, int cd_situacao_candidato_tot, int nr_candida
     } else if (cd_genero == 2) {
         this->cd_genero = MASCULINO;
     }
-    cout << nm_tipo_destinacao_votos << endl;
-    if(nm_tipo_destinacao_votos.find("legenda")) {
+
+    if(nm_tipo_destinacao_votos.find("legenda") != string::npos) {
         this->nm_tipo_destinacao_votos = true;
     } else {
         this->nm_tipo_destinacao_votos = false;

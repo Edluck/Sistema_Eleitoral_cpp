@@ -50,7 +50,6 @@ void CSVcandidatos::candidatosReader(const string &tipo_deputado, const string &
     string celula;
     ifstream inputStream;
     inputStream.exceptions(ifstream::badbit | ifstream::failbit);
-    int linhaAtual = 1;
     try
     {
         inputStream.open("candidatos.csv");
@@ -68,10 +67,11 @@ void CSVcandidatos::candidatosReader(const string &tipo_deputado, const string &
             }
 
             //Se partido não existir no mapa de partidos ele é adicionado    
-            if (partidos.find((stoi(linhaSplit[27]))) != partidos.end())
+            if (!partidos.count((stoi(linhaSplit[27]))))
             {
                 Partido p = Partido(linhaSplit[28], stoi(linhaSplit[27]));
                 partidos.insert(pair<int, Partido>(stoi(linhaSplit[27]), p));
+                //cout << partidos.find(stoi(linhaSplit[27]))->second.getSg_partido() << " " << partidos.find(stoi(linhaSplit[27]))->second.getNr_partido() << endl;
             }
 
             if (tipo_deputado_int == stoi(linhaSplit[13]) && linhaSplit[67].find("Válido") != std::string::npos)
@@ -91,20 +91,14 @@ void CSVcandidatos::candidatosReader(const string &tipo_deputado, const string &
                 candidatos.insert(pair<int, Candidato>(stoi(linhaSplit[16]), c));
                 //cout << c.getCd_cargo() << " " << c.getNm_urna_candidato() << endl;
                 //...e no seu respectivo partido.
-                partidos[stoi(linhaSplit[27])].addCandidato(c);
-
+                partidos.find(stoi(linhaSplit[27]))->second.addCandidato(c);
+                
             }
 
-            
-            
-            //proxima linha
-            linhaAtual++;
         }
         
         inputStream.close();
-        for(auto &c1 : candidatos) {
-            cout << c1.second.getCd_cargo() << " " << c1.second.getNm_urna_candidato() << endl;
-        }
+
     }
     catch (const invalid_argument &e)
     {
