@@ -19,13 +19,13 @@ public:
     const int &getVotosTotais() const;
     const int &getVotosNominaisTotal() const;
     void addVotosLegenda(int votos);
-    void addVotosNominaisTotal();
+    void calculaVotosTotais();
     const int &getVotosLegenda() const;
     const string &getSg_partido() const;
     const int &getNr_partido() const;
     void addCandidato(const Candidato &c);
     map<int, Candidato> &getCandidatos() ;
+    void imprimePartido();
 };
 
-void imprimePartido();
 #endif

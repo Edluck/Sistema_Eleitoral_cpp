@@ -119,7 +119,7 @@ void Candidato::imprimeCandidato() {
         plural = "s";
     }
     
-    cout << this->getNm_urna_candidato() << " " << "(" << this->getSg_partido() << ", " << this->getQtd_votos() << " voto" << plural <<")" << endl;
+    cout << this->getNm_urna_candidato() << " " << "(" << this->getSg_partido() << ", " << this->getQtd_votos() << " voto" << plural <<")";
 }
 
 

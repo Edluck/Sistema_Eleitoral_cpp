@@ -12,7 +12,8 @@
         "sstream": "cpp",
         "fstream": "cpp",
         "__config": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "ostream": "cpp"
     },
     "makefile.launchConfigurations": [
         {

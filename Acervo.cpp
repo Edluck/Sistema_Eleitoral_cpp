@@ -10,10 +10,14 @@ Acervo::Acervo(string tipo_deputado, string arq_cand, string arq_vot, string dat
     map<int, Partido> p = {};
     this->partidos = p;
     
-
     CSVcandidatos::candidatosReader(tipo_deputado, arq_cand, data_eleicao, this->candidatos, this->partidos);
     CSVvotacao::votacaoReader(tipo_deputado, arq_vot,  this->candidatos, this->partidos);
-
+    
+    for (auto &p : this->partidos)
+    {
+        p.second.calculaVotosTotais();
+    }
+    
 }
 
 void Acervo::geraRelatorio(string tipo_deputado) {
