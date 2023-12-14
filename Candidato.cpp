@@ -24,8 +24,8 @@ Candidato::Candidato(int cd_cargo, int cd_situacao_candidato_tot, int nr_candida
     } else if (cd_genero == 2) {
         this->cd_genero = MASCULINO;
     }
-
-    if(nm_tipo_destinacao_votos.find("legenda") != std::string::npos) {
+    cout << nm_tipo_destinacao_votos << endl;
+    if(nm_tipo_destinacao_votos.find("legenda")) {
         this->nm_tipo_destinacao_votos = true;
     } else {
         this->nm_tipo_destinacao_votos = false;
@@ -94,16 +94,11 @@ int &Candidato::getQtd_votos() const {
     return (int &) qtd_votos;
 }
 
-/*
-void imprimeCandidato() {
-    cout << "Candidato: " << nm_urna_candidato << endl;
-    cout << "Idade: " << idade << endl;
-    cout << "Partido: " << sg_partido << endl;
-    cout << "Número: " << nr_candidato << endl;
-    cout << "Votos: " << qtd_votos << endl;
-    cout << "-----------------------------------" << endl;
+// BRUNO LAMAS (PSB, 16.473 votos)
+void Candidato::imprimeCandidato() {
+    cout << this->getNm_urna_candidato() << " " << "(" << this->getSg_partido() << ", " << this->getQtd_votos() << " votos)" << endl;
 }
-*/
+
 
 
 

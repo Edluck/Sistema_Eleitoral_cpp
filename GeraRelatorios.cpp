@@ -73,7 +73,7 @@ void GeraRelatorios::geraRelatorio(string tipo_deputado, map<int, Candidato> can
             qtd_feminino++;
         }
         }
-        //cout << candidato.second.getCd_cargo() << " " << candidato.second.getNm_urna_candidato() << " " << candidato.second.getQtd_votos() << endl;
+        
     }
 
     porcentagem_masculino = ((double) qtd_masculino / (qtd_feminino + qtd_masculino)) * 100;
@@ -94,6 +94,7 @@ void GeraRelatorios::geraRelatorio(string tipo_deputado, map<int, Candidato> can
     for (auto &partido : partidos)
     {
         partido.second.addVotosNominaisTotal();
+        cout << partido.second.getSg_partido() << endl;
         total_votos_legenda += partido.second.getVotosLegenda();
         total_votos_nomimais += partido.second.getVotosNominaisTotal();
     }

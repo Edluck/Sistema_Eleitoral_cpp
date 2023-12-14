@@ -73,7 +73,6 @@ void CSVvotacao::votacaoReader(const string &tipo_deputado,const string &arquivo
             }
             
             nr_notavel = stoi(linhaSplit[19]);
-
             if (nr_notavel < 95 || nr_notavel > 98)
             {
                 if (tipo_deputado_int == stoi(linhaSplit[17]))
@@ -92,6 +91,10 @@ void CSVvotacao::votacaoReader(const string &tipo_deputado,const string &arquivo
                                 candidatos[nr_notavel].addVotos(stoi(linhaSplit[21]));
                             }
                         }
+                    }
+                    else if(partidos.find(nr_notavel) != partidos.end())
+                    {
+                        partidos[nr_notavel].addVotosLegenda(stoi(linhaSplit[21]));
                     }
                 }
             }

@@ -46,8 +46,7 @@ class Candidato {
     int &getIdade() const;
     void addVotos(int n_votos) ;
     int &getQtd_votos() const;
+    void imprimeCandidato();
 };
-
-        void imprimeCandidato();
 
 #endif
