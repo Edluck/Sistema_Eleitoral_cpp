@@ -1,6 +1,7 @@
 #include "GeraRelatorios.h"
 #include <iostream>
 #include <locale>
+#include <list>
 
 using namespace std;
 
@@ -30,14 +31,113 @@ void GeraRelatorios::geraRelatorio(string tipo_deputado, map<int, Candidato> can
     geraRelatorio10(tipo_deputado_int, candidatos, partidos);
 }
 
- void GeraRelatorios::GeraRelatorios::geraRelatorio1(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
-{
+ void GeraRelatorios::geraRelatorio1(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+{   
+    int nr_vagas = 0;
+    
+    for (auto &c : candidatos)
+    {
+        int sc = c.second.getCd_situacao_candidato_tot();
+        int st = c.second.getCd_sit_tot_turno();
+        int td = c.second.getCd_cargo();
+        if ((sc == 2 || sc == 16)&&(st ==2 || st == 3)&&(td == tipo_deputado_int))
+        {
+            nr_vagas++;
+        }
+    }
+
+    cout << "Número de vagas: " << nr_vagas << endl << endl;
 }
- void GeraRelatorios::geraRelatorio2(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+
+bool ordernarCandidatosDecrescente (const Candidato& primeiro, const Candidato& segundo)
 {
+    int res = 0;
+    res = segundo.getQtd_votos() - primeiro.getQtd_votos();
+    if (res == 0) {
+        res = segundo.getIdade() - primeiro.getIdade();
+    }
+    return res<0;
+}
+
+void GeraRelatorios::geraRelatorio2(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+{
+    int nr_vagas = 0;
+
+    list<Candidato> ordem; 
+    
+    for (auto &c : candidatos)
+    {
+        int sc = c.second.getCd_situacao_candidato_tot();
+        int st = c.second.getCd_sit_tot_turno();
+        int td = c.second.getCd_cargo();
+        if ((sc == 2 || sc == 16)&&(st ==2 || st == 3)&&(td == tipo_deputado_int))
+        {
+            nr_vagas++;
+            ordem.push_back(c.second);
+        
+        }
+    }
+
+    ordem.sort(ordernarCandidatosDecrescente);
+
+    if (tipo_deputado_int == 6)
+        cout << "Deputados federais eleitos: " << endl;
+    else if (tipo_deputado_int == 7)
+        cout << "Deputados estaduais eleitos: " << endl;
+
+    int idx = 1;
+    for (auto &c : ordem)
+    {
+        string fed = "";
+        if (c.getNr_federacao() != -1)
+        {
+            fed = "*";
+        }
+        
+        cout << idx << " - " << fed; 
+        c.imprimeCandidato();
+        
+        idx++;
+    }
 }
  void GeraRelatorios::geraRelatorio3(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
+    int nr_vagas = 0;
+
+    list<Candidato> ordem; 
+    
+    for (auto &c : candidatos)
+    {
+        int sc = c.second.getCd_situacao_candidato_tot();
+        int td = c.second.getCd_cargo();
+        if ((sc == 2 || sc == 16)&&(td == tipo_deputado_int))
+        {
+            nr_vagas++;
+            ordem.push_back(c.second);
+        
+        }
+    }
+
+    ordem.sort(ordernarCandidatosDecrescente);
+
+    cout << endl << "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << endl;
+   
+    int idx = 1;
+    for (auto &c : ordem)
+    {
+        string fed = "";
+        if (c.getNr_federacao() != -1)
+        {
+            fed = "*";
+        }
+        
+        cout << idx << " - " << fed; 
+        c.imprimeCandidato();
+        
+        idx++;        
+        
+        if (idx == 31) break;
+    }
 }
  void GeraRelatorios::geraRelatorio4(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
@@ -94,7 +194,6 @@ void GeraRelatorios::geraRelatorio(string tipo_deputado, map<int, Candidato> can
     for (auto &partido : partidos)
     {
         partido.second.addVotosNominaisTotal();
-        cout << partido.second.getSg_partido() << endl;
         total_votos_legenda += partido.second.getVotosLegenda();
         total_votos_nomimais += partido.second.getVotosNominaisTotal();
     }

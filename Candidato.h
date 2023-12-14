@@ -22,7 +22,6 @@ class Candidato {
     int cd_sit_tot_turno;
     Genero cd_genero;
     bool nm_tipo_destinacao_votos;
-
     int qtd_votos = 0;
     int idade = 0;
 

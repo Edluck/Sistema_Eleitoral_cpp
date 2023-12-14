@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include "Candidato.h"
+#include <ctime>
+
+#define SEC_PER_YEAR 31536000
 
 using namespace std;
 
@@ -19,6 +22,20 @@ Candidato::Candidato(int cd_cargo, int cd_situacao_candidato_tot, int nr_candida
     this->dt_nascimento = dt_nascimento;
     this->cd_sit_tot_turno = cd_sit_tot_turno;
     
+    //calculo da idade usando ctime
+    time_t t_at;
+    tm nasc;
+
+    /* get current timeinfo and modify it to the user's choice */
+    time ( &t_at );
+    nasc = *localtime( &t_at );
+    // dy/mt/year
+    nasc.tm_mday = stoi(dt_nascimento.substr(0,2));
+    nasc.tm_mon =  stoi(dt_nascimento.substr(3,2)) - 1;
+    nasc.tm_year = stoi(dt_nascimento.substr(6,4)) - 1900;
+
+    this->idade = difftime(t_at, mktime (&nasc))/SEC_PER_YEAR;
+
     if(cd_genero == 4) {
         this->cd_genero = FEMININO;
     } else if (cd_genero == 2) {
@@ -96,9 +113,14 @@ const int &Candidato::getQtd_votos() const {
 
 // BRUNO LAMAS (PSB, 16.473 votos)
 void Candidato::imprimeCandidato() {
-    cout << this->getNm_urna_candidato() << " " << "(" << this->getSg_partido() << ", " << this->getQtd_votos() << " votos)" << endl;
+    string plural = "";
+    if (this->getQtd_votos() > 1)
+    {
+        plural = "s";
+    }
+    
+    cout << this->getNm_urna_candidato() << " " << "(" << this->getSg_partido() << ", " << this->getQtd_votos() << " voto" << plural <<")" << endl;
 }
-
 
 
 

@@ -30,7 +30,6 @@ void Partido::addVotosLegenda(int votos) {
 
 void Partido::addVotosNominaisTotal() {
     for(auto &candidatos : this->candidatos) {
-        cout << candidatos.second.getNm_urna_candidato() << " " << candidatos.second.getQtd_votos() << endl;
         if(candidatos.second.getCd_situacao_candidato_tot() == 2 || candidatos.second.getCd_situacao_candidato_tot() == 16)
         this->votos_nominais_total += candidatos.second.getQtd_votos();
     }
