@@ -42,7 +42,7 @@ $(EXECUTAVEL): $(OBJETOS)
 
 # comandos para execução
 runfederal: $(EXECUTAVEL)
-	@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind-out2.txt ./$(EXECUTAVEL) --federal candidatos.csv votacao.csv 02/10/2022
+	@./$(EXECUTAVEL) --federal candidatos.csv votacao.csv 02/10/2022
 
 runestadual: $(EXECUTAVEL)
 	@./$(EXECUTAVEL) --estadual candidatos.csv votacao.csv 02/10/2022

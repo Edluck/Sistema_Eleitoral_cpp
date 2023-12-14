@@ -76,8 +76,8 @@ bool ordernarPartidosPorCandidatoMaisVotado ( Partido& primeiro,  Partido& segun
 
 void GeraRelatorios::geraRelatorio(string tipo_deputado, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
-   //locale brasilLocale("pt_BR.UTF-8");
-   //cout.imbue(brasilLocale);
+   locale brasilLocale("pt_BR.UTF-8");
+   cout.imbue(brasilLocale);
 
     int tipo_deputado_int = 0;
     if (tipo_deputado == "estadual")
@@ -99,7 +99,10 @@ void GeraRelatorios::geraRelatorio(string tipo_deputado, map<int, Candidato> can
     geraRelatorio8(tipo_deputado_int, candidatos, partidos);
     geraRelatorio9(tipo_deputado_int, candidatos, partidos);
     geraRelatorio10(tipo_deputado_int, candidatos, partidos);
-    
+    brasilLocale.~locale();
+    /* O locale é a unica entidade que não é destruida totalmente
+       gerando o erro no valgrind de "Still reachable"
+    */
 }
 
  void GeraRelatorios::geraRelatorio1(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
