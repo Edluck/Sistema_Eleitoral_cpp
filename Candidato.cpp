@@ -32,48 +32,48 @@ Candidato::Candidato(int cd_cargo, int cd_situacao_candidato_tot, int nr_candida
     }
 }
 
-int &Candidato::getCd_cargo() const {
-    return (int &) cd_cargo;
+const int &Candidato::getCd_cargo() const {
+    return cd_cargo;
 }
 
-int &Candidato::getCd_situacao_candidato_tot() const {
-    return (int &) cd_situacao_candidato_tot;
+const int &Candidato::getCd_situacao_candidato_tot() const {
+    return cd_situacao_candidato_tot;
 }
 
-int &Candidato::getNr_candidato() const {
-    return (int &) nr_candidato;
+const int &Candidato::getNr_candidato() const {
+    return nr_candidato;
 }
 
-string &Candidato::getNm_urna_candidato() const {
-    return (string &) nm_urna_candidato;
+const string &Candidato::getNm_urna_candidato() const {
+    return nm_urna_candidato;
 }
 
-int &Candidato::getNr_partido() const {
-    return (int &) nr_partido;
+const int &Candidato::getNr_partido() const {
+    return nr_partido;
 }
 
-string &Candidato::getSg_partido() const {
-    return (string &) sg_partido;
+const string &Candidato::getSg_partido() const {
+    return sg_partido;
 }
 
-int &Candidato::getNr_federacao() const {
-    return (int &) nr_federacao;
+const int &Candidato::getNr_federacao() const {
+    return nr_federacao;
 }
 
-string &Candidato::getDt_nascimento() const {
-    return (string &) dt_nascimento;
+const string &Candidato::getDt_nascimento() const {
+    return dt_nascimento;
 }
 
-int &Candidato::getCd_sit_tot_turno() const {
-    return (int &) cd_sit_tot_turno;
+const int &Candidato::getCd_sit_tot_turno() const {
+    return cd_sit_tot_turno;
 }
 
-Genero &Candidato::getCd_genero() const {
-    return (Genero &) cd_genero;
+const Genero &Candidato::getCd_genero() const {
+    return cd_genero;
 }
 
-bool &Candidato::getNm_tipo_destinacao_votos() const {
-    return (bool &) nm_tipo_destinacao_votos;
+const bool &Candidato::getNm_tipo_destinacao_votos() const {
+    return nm_tipo_destinacao_votos;
 }
 
 void Candidato::setIdade(const string &dataEleicao) {
@@ -82,16 +82,16 @@ void Candidato::setIdade(const string &dataEleicao) {
     this->idade = anoEleicao - anoNascimento;
 }
 
-int &Candidato::getIdade() const {
-    return (int &) idade;
+const int &Candidato::getIdade() const {
+    return idade;
 }
 
 void Candidato::addVotos(int n_votos) {
     this->qtd_votos += n_votos;
 }
 
-int &Candidato::getQtd_votos() const {
-    return (int &) qtd_votos;
+const int &Candidato::getQtd_votos() const {
+    return qtd_votos;
 }
 
 // BRUNO LAMAS (PSB, 16.473 votos)

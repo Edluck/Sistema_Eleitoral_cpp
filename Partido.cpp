@@ -16,12 +16,12 @@ Partido::Partido(string nome, int nr_partido) {
     this->votos_totais = 0;
 }
 
-int &Partido::getVotosTotais() const {
-    return (int &) votos_totais;
+const int &Partido::getVotosTotais() const {
+    return votos_totais;
 }
 
-int &Partido::getVotosNominaisTotal() const {
-    return (int &) votos_nominais_total;
+const int &Partido::getVotosNominaisTotal() const {
+    return votos_nominais_total;
 }
 
 void Partido::addVotosLegenda(int votos) {
@@ -35,16 +35,16 @@ void Partido::addVotosNominaisTotal() {
     }
 }
 
-int &Partido::getVotosLegenda() const {
-    return (int &) votos_legenda;
+const int &Partido::getVotosLegenda() const {
+    return votos_legenda;
 }
 
-string &Partido::getSg_partido() const {
-    return (string &) sg_partido;
+const string &Partido::getSg_partido() const {
+    return sg_partido;
 }
 
-int &Partido::getNr_partido() const {
-    return (int &) nr_partido;
+const int &Partido::getNr_partido() const {
+    return nr_partido;
 }
 
 void Partido::addCandidato(Candidato c) {

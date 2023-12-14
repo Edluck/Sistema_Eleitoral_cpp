@@ -16,13 +16,13 @@ class Partido
 public:
     Partido();
     Partido(string nome, int nr_partido);
-    int &getVotosTotais() const;
-    int &getVotosNominaisTotal() const;
+    const int &getVotosTotais() const;
+    const int &getVotosNominaisTotal() const;
     void addVotosLegenda(int votos);
     void addVotosNominaisTotal();
-    int &getVotosLegenda() const;
-    string &getSg_partido() const;
-    int &getNr_partido() const;
+    const int &getVotosLegenda() const;
+    const string &getSg_partido() const;
+    const int &getNr_partido() const;
     void addCandidato(Candidato c);
     const map<int, Candidato> &getCandidatos() const;
 };
