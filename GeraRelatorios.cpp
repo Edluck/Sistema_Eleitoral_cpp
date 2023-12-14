@@ -15,7 +15,7 @@ bool ordernarCandidatosDecrescente (const Candidato& primeiro, const Candidato& 
     return res<0;
 }
 
-bool ordernarPartidos (const Partido& primeiro, const Partido& segundo)
+bool ordernarPartidosPorVotosTotais (const Partido& primeiro, const Partido& segundo)
 {
     int res = 0;
     res = segundo.getVotosTotais() - primeiro.getVotosTotais();
@@ -24,6 +24,54 @@ bool ordernarPartidos (const Partido& primeiro, const Partido& segundo)
     }
     return res<0;
 }
+
+bool ordernarPartidosPorCandidatoMaisVotado ( Partido& primeiro,  Partido& segundo)
+{
+    int res = 0;
+    if (primeiro.getCandidatos().size() == 0 && segundo.getCandidatos().size() == 0) {
+        return false;
+    }
+    else if (primeiro.getCandidatos().size() == 0) {
+        return false;
+    }
+    else if (segundo.getCandidatos().size() == 0) {
+        return true;
+    }
+
+
+    list<Candidato> candidatos_primeiro; 
+    for (auto &c : primeiro.getCandidatos())
+    {
+        int sc = c.second.getCd_situacao_candidato_tot();
+        if (sc == 2 || sc == 16)
+        {
+            candidatos_primeiro.push_back(c.second);
+        }
+    }
+
+    list<Candidato> candidatos_segundo; 
+    for (auto &c : segundo.getCandidatos())
+    {
+        int sc = c.second.getCd_situacao_candidato_tot();
+        if (sc == 2 || sc == 16)
+        {
+            candidatos_segundo.push_back(c.second);
+        }
+    }
+
+    candidatos_primeiro.sort(ordernarCandidatosDecrescente);
+    candidatos_segundo.sort(ordernarCandidatosDecrescente);
+
+    res = candidatos_segundo.front().getQtd_votos() - candidatos_primeiro.front().getQtd_votos();
+            
+    if (res == 0) {
+        res = primeiro.getNr_partido() - segundo.getNr_partido();
+    }
+
+    return res<0;
+}
+
+
 
 void GeraRelatorios::geraRelatorio(string tipo_deputado, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
@@ -248,7 +296,7 @@ void GeraRelatorios::geraRelatorio6(int tipo_deputado_int, map<int, Candidato> c
             p_ordem.push_back(p.second);
     }
 
-    p_ordem.sort(ordernarPartidos);
+    p_ordem.sort(ordernarPartidosPorVotosTotais);
 
     int idx = 1;
     for (auto &p : p_ordem)
@@ -294,11 +342,78 @@ void GeraRelatorios::geraRelatorio6(int tipo_deputado_int, map<int, Candidato> c
 
 void GeraRelatorios::geraRelatorio7(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
+    cout << endl << "Primeiro e último colocados de cada partido:" << endl;
+
+    list<Partido> p_ordem; 
+
+    for (auto &p : partidos)
+    {
+            p_ordem.push_back(p.second);
+    }
+
+    p_ordem.sort(ordernarPartidosPorCandidatoMaisVotado);
+
+    int idx = 1;
+
+    for (auto &p : p_ordem)
+    {
+        if (p.getCandidatos().size() == 0) continue;
+
+        list<Candidato> c_ordem;
+        
+        for (auto &c : p.getCandidatos())
+        {
+            int td = c.second.getCd_cargo();
+            if ((td == tipo_deputado_int))
+            {
+                c_ordem.push_back(c.second);
+            }
+        }
+
+        c_ordem.sort(ordernarCandidatosDecrescente); 
+
+        Candidato melhor = c_ordem.front();
+
+
+        if (melhor.getQtd_votos() <= 0) continue;
+
+
+        Candidato pior = c_ordem.back();
+        
+        
+        while (pior.getQtd_votos() == 0)
+        {
+            c_ordem.pop_back();
+            pior = c_ordem.back();
+        }
+        
+        string plural_melhor="";
+        if (melhor.getQtd_votos() > 1)
+        {
+            plural_melhor="s";
+        }
+        
+        string plural_pior="";
+        if (pior.getQtd_votos() > 1)
+        {
+            plural_pior="s";
+        }
+
+        cout << idx << " - ";
+        p.imprimePartido();
+        cout << " " << melhor.getNm_urna_candidato() << " (" << melhor.getNr_candidato();
+        cout << ", " << melhor.getQtd_votos() << " voto" << plural_melhor <<")" << " / " << pior.getNm_urna_candidato();
+        cout << " (" << pior.getNr_candidato() << ", " << pior.getQtd_votos() << " voto" << plural_pior <<")" << endl;
+        
+        idx++;
+    }
 }
- void GeraRelatorios::geraRelatorio8(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+
+void GeraRelatorios::geraRelatorio8(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
 }
- void GeraRelatorios::geraRelatorio9(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+
+void GeraRelatorios::geraRelatorio9(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
     int qtd_masculino = 0;
     int qtd_feminino = 0;
