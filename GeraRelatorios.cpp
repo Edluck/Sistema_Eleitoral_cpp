@@ -100,7 +100,8 @@ void GeraRelatorios::geraRelatorio2(int tipo_deputado_int, map<int, Candidato> c
         idx++;
     }
 }
- void GeraRelatorios::geraRelatorio3(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+
+void GeraRelatorios::geraRelatorio3(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
     int nr_vagas = 0;
 
@@ -139,10 +140,49 @@ void GeraRelatorios::geraRelatorio2(int tipo_deputado_int, map<int, Candidato> c
         if (idx == 31) break;
     }
 }
- void GeraRelatorios::geraRelatorio4(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+
+void GeraRelatorios::geraRelatorio4(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
+    int nr_vagas = 0;
+
+    list<Candidato> ordem; 
+    
+    for (auto &c : candidatos)
+    {
+        int sc = c.second.getCd_situacao_candidato_tot();
+        int td = c.second.getCd_cargo();
+        if ((sc == 2 || sc == 16)&&(td == tipo_deputado_int))
+        {
+            nr_vagas++;
+            ordem.push_back(c.second);
+        
+        }
+    }
+
+    ordem.sort(ordernarCandidatosDecrescente);
+
+    cout << endl << "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:"<< endl << "(com sua posição no ranking de mais votados)" << endl;
+   
+    int idx = 1;
+    for (auto &c : ordem)
+    {
+        string fed = "";
+        if (c.getNr_federacao() != -1)
+        {
+            fed = "*";
+        }
+
+        if (!(c.getCd_sit_tot_turno() == 2 || c.getCd_sit_tot_turno() == 3)){
+            cout << idx << " - " << fed; 
+            c.imprimeCandidato();
+        }
+        idx++;        
+        
+        if (idx == 31) break;
+    }
 }
- void GeraRelatorios::geraRelatorio5(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+
+void GeraRelatorios::geraRelatorio5(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
 }
  void GeraRelatorios::geraRelatorio6(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
