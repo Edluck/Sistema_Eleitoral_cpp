@@ -85,15 +85,15 @@ void Candidato::setIdade(const string &dataEleicao) {
     tm elei = {0};
 
     nasc.tm_mday = stoi(dt_nascimento.substr(0,2));
-    nasc.tm_mon =  stoi(dt_nascimento.substr(3,2)) - 1; // Months are 0-11 in struct tm
-    nasc.tm_year = stoi(dt_nascimento.substr(6,4)) - 1900; // Years are counted from 1900 in struct tm
+    nasc.tm_mon =  stoi(dt_nascimento.substr(3,2)) - 1;
+    nasc.tm_year = stoi(dt_nascimento.substr(6,4)) - 1900; 
 
     elei.tm_mday = stoi(dataEleicao.substr(0,2));
     elei.tm_mon =  stoi(dataEleicao.substr(3,2)) - 1;
     elei.tm_year = stoi(dataEleicao.substr(6,4)) - 1900;
 
-    double secondsPerYear = 60 * 60 * 24 * 365.2425; // Average number of seconds in a year, accounting for leap years
-    this->idade = difftime(mktime(&elei), mktime(&nasc)) / secondsPerYear;
+    double segundos_no_Ano = 60 * 60 * 24 * 365.2425; 
+    this->idade = difftime(mktime(&elei), mktime(&nasc)) / segundos_no_Ano;
     
 }
 
