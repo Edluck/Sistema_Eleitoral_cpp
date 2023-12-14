@@ -34,8 +34,8 @@ static string iso_8859_1_to_utf8(string &str)
     return strOut;
 }
 
-void CSVcandidatos::candidatosReader(string tipo_deputado, string arquivo_cand, string data_eleicao,
-                                     map<int, Candidato> candidatos, map<int, Partido> partidos)
+void CSVcandidatos::candidatosReader(const string &tipo_deputado, const string &arquivo_cand, string data_eleicao,
+                                     map<int, Candidato> &candidatos, map<int, Partido> &partidos)
 {
     int tipo_deputado_int;
     if (tipo_deputado == "estadual")
@@ -67,18 +67,38 @@ void CSVcandidatos::candidatosReader(string tipo_deputado, string arquivo_cand, 
                 linhaSplit.push_back(celula);
             }
 
+            //Se partido não existir no mapa de partidos ele é adicionado    
+            if (partidos.find((stoi(linhaSplit[27]))) != partidos.end())
+            {
+                Partido p = Partido(linhaSplit[28], stoi(linhaSplit[27]));
+                partidos.insert(pair<int, Partido>(stoi(linhaSplit[27]), p));
+            }
+
             if (tipo_deputado_int == stoi(linhaSplit[13]) && linhaSplit[67].find("Válido") != std::string::npos)
             {
+                //Cria um novo candidato
                 Candidato c = Candidato(stoi(linhaSplit[13]), stoi(linhaSplit[68]),
                                         stoi(linhaSplit[16]), linhaSplit[18],
                                         stoi(linhaSplit[27]), linhaSplit[28],
                                         stoi(linhaSplit[30]), linhaSplit[42],
                                         stoi(linhaSplit[56]), stoi(linhaSplit[45]),
                                         linhaSplit[67]);
-                cout << linhaSplit[13] << " " << linhaSplit[18] << endl;
+                
+                //print teste
+                //cout << linhaSplit[13] << " " << linhaSplit[18] << endl;
+                
+                //insere o candidato na lista de candidatos... 
+                candidatos.insert(pair<int, Candidato>(stoi(linhaSplit[16]), c));
+                //...e no seu respectivo partido.
+                partidos[stoi(linhaSplit[27])].addCandidato(c);
             }
+
+            
+            
+            //proxima linha
             linhaAtual++;
         }
+
         inputStream.close();
     }
     catch (const invalid_argument &e)

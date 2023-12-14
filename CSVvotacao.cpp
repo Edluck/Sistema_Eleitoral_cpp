@@ -38,10 +38,22 @@ static string iso_8859_1_to_utf8(string &str)
 void CSVvotacao::votacaoReader(string tipo_deputado, string arquivo_vot, map<int, Candidato> candidatos,
             map<int, Partido> partidos) 
 {
+    int tipo_deputado_int;
+    if (tipo_deputado == "estadual")
+    {
+        tipo_deputado_int = 7;
+    }
+    else if (tipo_deputado == "federal")
+    {
+        tipo_deputado_int = 6;
+    }
+
     string celula;
     ifstream inputStream;
     inputStream.exceptions(ifstream::badbit | ifstream::failbit);   
     int linhaAtual=1;
+    
+    int nr_notavel=-1;
     try
     {
         inputStream.open("votacao.csv");
@@ -56,7 +68,32 @@ void CSVvotacao::votacaoReader(string tipo_deputado, string arquivo_vot, map<int
             {
                 linhaSplit.push_back(celula);
             }
-            cout << linhaSplit[13] << " " << linhaSplit[18] << endl;
+            //cout << linhaSplit[13] << " " << linhaSplit[18] << endl;
+            
+            nr_notavel = stoi(linhaSplit[19]);
+
+            if (nr_notavel < 95 || nr_notavel > 98)
+            {
+                if (tipo_deputado_int == stoi(linhaSplit[17]))
+                {
+                    if (candidatos.find(nr_notavel) != candidatos.end())
+                    {
+                        if (candidatos[nr_notavel].getNm_tipo_destinacao_votos())
+                        {
+                            //adiciona votos de legenda ao partido do candidato
+                            partidos[candidatos[nr_notavel].getNr_partido()].addVotosLegenda(stoi(linhaSplit[21]));
+                        }
+                        else
+                        {
+                            if (candidatos[nr_notavel].getCd_situacao_candidato_tot() == 2 || candidatos[nr_notavel].getCd_situacao_candidato_tot() == 16)
+                            {
+                                candidatos[nr_notavel].addVotos(stoi(linhaSplit[21]));
+                            }
+                        }
+                    }
+                }
+            }
+            
             linhaAtual++;
         }
         inputStream.close();
