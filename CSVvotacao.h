@@ -21,8 +21,8 @@ class CSVvotacao {
     static string diretorio_arq_votacao;
 
     public:
-    static void votacaoReader(string tipo_deputado, string arquivo_vot, map<int, Candidato> candidatos,
-            map<int, Partido> partidos);
+    static void votacaoReader(const string &tipo_deputado,const string &arquivo_vot, map<int, Candidato> &candidatos,
+            map<int, Partido> &partidos);
 };
 
 #endif

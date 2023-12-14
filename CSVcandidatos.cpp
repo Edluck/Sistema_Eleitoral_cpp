@@ -83,7 +83,7 @@ void CSVcandidatos::candidatosReader(const string &tipo_deputado, const string &
                                         stoi(linhaSplit[30]), linhaSplit[42],
                                         stoi(linhaSplit[56]), stoi(linhaSplit[45]),
                                         linhaSplit[67]);
-                
+                c.setIdade(data_eleicao);
                 //print teste
                 //cout << linhaSplit[13] << " " << linhaSplit[18] << endl;
                 

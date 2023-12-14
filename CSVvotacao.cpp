@@ -2,8 +2,10 @@
 #include <fstream>  // ifstream
 #include <sstream>  // istringstream
 #include <map>
+#include <string>
 #include <vector>
 #include <iterator>
+#include <algorithm>
 
 #include "Candidato.h"
 #include "CSVvotacao.h"
@@ -35,8 +37,8 @@ static string iso_8859_1_to_utf8(string &str)
   return strOut;
 }
 
-void CSVvotacao::votacaoReader(string tipo_deputado, string arquivo_vot, map<int, Candidato> candidatos,
-            map<int, Partido> partidos) 
+void CSVvotacao::votacaoReader(const string &tipo_deputado,const string &arquivo_vot, map<int, Candidato> &candidatos,
+            map<int, Partido> &partidos) 
 {
     int tipo_deputado_int;
     if (tipo_deputado == "estadual")
@@ -66,9 +68,9 @@ void CSVvotacao::votacaoReader(string tipo_deputado, string arquivo_vot, map<int
             istringstream linhaStream(linha);
             while(getline(linhaStream, celula, ';'))
             {
+                celula.erase(remove(celula.begin(), celula.end(), '\"'), celula.end());
                 linhaSplit.push_back(celula);
             }
-            //cout << linhaSplit[13] << " " << linhaSplit[18] << endl;
             
             nr_notavel = stoi(linhaSplit[19]);
 

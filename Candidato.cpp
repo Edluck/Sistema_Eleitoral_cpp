@@ -25,7 +25,7 @@ Candidato::Candidato(int cd_cargo, int cd_situacao_candidato_tot, int nr_candida
         this->cd_genero = MASCULINO;
     }
 
-    if(nm_tipo_destinacao_votos.compare("legenda") == 0) {
+    if(nm_tipo_destinacao_votos.find("legenda") != std::string::npos) {
         this->nm_tipo_destinacao_votos = true;
     } else {
         this->nm_tipo_destinacao_votos = false;
@@ -80,6 +80,7 @@ void Candidato::setIdade(const string &dataEleicao) {
     int anoEleicao = stoi(dataEleicao.substr(0, 4));
     int anoNascimento = stoi(dt_nascimento.substr(0, 4));
     this->idade = anoEleicao - anoNascimento;
+    cout << "Idade: " << idade << " " << dataEleicao << " " << dt_nascimento << endl;
 }
 
 int &Candidato::getIdade() const {
