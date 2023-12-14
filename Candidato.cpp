@@ -22,20 +22,6 @@ Candidato::Candidato(int cd_cargo, int cd_situacao_candidato_tot, int nr_candida
     this->dt_nascimento = dt_nascimento;
     this->cd_sit_tot_turno = cd_sit_tot_turno;
     
-    //calculo da idade usando ctime
-    time_t t_at;
-    tm nasc;
-
-    /* get current timeinfo and modify it to the user's choice */
-    time ( &t_at );
-    nasc = *localtime( &t_at );
-    // dy/mt/year
-    nasc.tm_mday = stoi(dt_nascimento.substr(0,2));
-    nasc.tm_mon =  stoi(dt_nascimento.substr(3,2)) - 1;
-    nasc.tm_year = stoi(dt_nascimento.substr(6,4)) - 1900;
-
-    this->idade = difftime(t_at, mktime (&nasc))/SEC_PER_YEAR;
-
     if(cd_genero == 4) {
         this->cd_genero = FEMININO;
     } else if (cd_genero == 2) {
@@ -94,9 +80,24 @@ const bool &Candidato::getNm_tipo_destinacao_votos() const {
 }
 
 void Candidato::setIdade(const string &dataEleicao) {
-    int anoEleicao = stoi(dataEleicao.substr(0, 4));
-    int anoNascimento = stoi(dt_nascimento.substr(0, 4));
-    this->idade = anoEleicao - anoNascimento;
+    //calculo da idade usando ctime
+    time_t t_at;
+    time ( &t_at );
+    
+    tm nasc = *localtime( &t_at );
+    tm elei = *localtime( &t_at );
+    
+    // dy/mt/year
+    nasc.tm_mday = stoi(dt_nascimento.substr(0,2));
+    nasc.tm_mon =  stoi(dt_nascimento.substr(3,2)) - 1;
+    nasc.tm_year = stoi(dt_nascimento.substr(6,4)) - 1900;
+
+    elei.tm_mday = stoi(dataEleicao.substr(0,2));
+    elei.tm_mon =  stoi(dataEleicao.substr(3,2)) - 1;
+    elei.tm_year = stoi(dataEleicao.substr(6,4)) - 1900;
+
+    this->idade = difftime(mktime (&elei), mktime (&nasc))/SEC_PER_YEAR;
+    
 }
 
 const int &Candidato::getIdade() const {

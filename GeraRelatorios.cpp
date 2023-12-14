@@ -411,6 +411,52 @@ void GeraRelatorios::geraRelatorio7(int tipo_deputado_int, map<int, Candidato> c
 
 void GeraRelatorios::geraRelatorio8(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
+    cout << endl << "Eleitos, por faixa etária (na data de eleição):" << endl;
+
+    int idade_menor_30 = 0;
+    int idade_30_40 = 0;
+    int idade_40_50 = 0;
+    int idade_50_60 = 0;
+    int idade_maior_60 = 0;
+    
+    double porcentagem_menor_30 = 0;
+    double porcentagem_30_40 = 0;
+    double porcentagem_40_50 = 0;
+    double porcentagem_50_60 = 0;
+    double porcentagem_maior_60 = 0;
+    
+    for (auto &c : candidatos) {
+        int st = c.second.getCd_sit_tot_turno();
+        int td = c.second.getCd_cargo();
+        int idade = c.second.getIdade();
+
+        if (td == tipo_deputado_int && (st == 2 || st == 3)) {
+            if (idade < 30)
+                idade_menor_30++;
+            else if (idade >= 30 && idade < 40)
+                idade_30_40++;
+            else if (idade >= 40 && idade < 50)
+                idade_40_50++;
+            else if (idade >= 50 && idade < 60)
+                idade_50_60++;
+            else if (idade >= 60)
+                idade_maior_60++;
+        }
+    }
+
+    int total = idade_menor_30 + idade_30_40 + idade_40_50 + idade_50_60 + idade_maior_60;
+
+    porcentagem_menor_30 = ((double) idade_menor_30 / total) * 100;
+    porcentagem_30_40 = ((double) idade_30_40 / total) * 100;
+    porcentagem_40_50 = ((double) idade_40_50 / total) * 100;
+    porcentagem_50_60 = ((double) idade_50_60 / total) * 100;
+    porcentagem_maior_60 = ((double) idade_maior_60 / total) * 100;
+
+    cout << "      Idade < 30: " << idade_menor_30 << " (" << porcentagem_menor_30 << "%)" << endl;
+    cout << "30 <= Idade < 40: " << idade_30_40 << " (" << porcentagem_30_40 << "%)" << endl;
+    cout << "40 <= Idade < 50: " << idade_40_50 << " (" << porcentagem_40_50 << "%)" << endl;
+    cout << "50 <= Idade < 60: " << idade_50_60 << " (" << porcentagem_50_60 << "%)" << endl;
+    cout << "60 <= Idade     : " << idade_maior_60 << " (" << porcentagem_maior_60 << "%)" << endl;
 }
 
 void GeraRelatorios::geraRelatorio9(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
