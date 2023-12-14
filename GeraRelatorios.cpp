@@ -30,31 +30,31 @@ void GeraRelatorios::geraRelatorio(string tipo_deputado, map<int, Candidato> can
     geraRelatorio10(tipo_deputado_int, candidatos, partidos);
 }
 
-static void geraRelatorio1(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+ void GeraRelatorios::GeraRelatorios::geraRelatorio1(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
 }
-static void geraRelatorio2(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+ void GeraRelatorios::geraRelatorio2(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
 }
-static void geraRelatorio3(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+ void GeraRelatorios::geraRelatorio3(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
 }
-static void geraRelatorio4(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+ void GeraRelatorios::geraRelatorio4(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
 }
-static void geraRelatorio5(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+ void GeraRelatorios::geraRelatorio5(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
 }
-static void geraRelatorio6(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+ void GeraRelatorios::geraRelatorio6(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
 }
-static void geraRelatorio7(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+ void GeraRelatorios::geraRelatorio7(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
 }
-static void geraRelatorio8(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+ void GeraRelatorios::geraRelatorio8(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
 }
-static void geraRelatorio9(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+ void GeraRelatorios::geraRelatorio9(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
     int qtd_masculino = 0;
     int qtd_feminino = 0;
@@ -83,7 +83,7 @@ static void geraRelatorio9(int tipo_deputado_int, map<int, Candidato> candidatos
     cout << "Feminino:  " << qtd_feminino << " (" << porcentagem_feminino << "%)" << endl;
     cout << "Masculino:  " << qtd_masculino << " (" << porcentagem_masculino << "%)" << endl;
 }
-static void geraRelatorio10(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
+ void GeraRelatorios::geraRelatorio10(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
     int total_votos_legenda = 0;
     int total_votos_nomimais = 0;
