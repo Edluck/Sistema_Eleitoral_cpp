@@ -16,6 +16,5 @@ int main(int argc, char *argv[]) {
     
     Acervo acervo(tipo_deputado, arq_cand, arq_vot, data_eleicao);
     acervo.geraRelatorio(tipo_deputado);
-    
     return 0;
 }

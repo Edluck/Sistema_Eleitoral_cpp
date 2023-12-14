@@ -21,7 +21,7 @@ FONTES = $(wildcard *.cpp)
 OBJETOS = $(FONTES:.cpp=.o)
 
 # nome do arquivo executável
-EXECUTAVEL = main
+EXECUTAVEL = deputados
 
 ############ alvos
 #
@@ -42,7 +42,7 @@ $(EXECUTAVEL): $(OBJETOS)
 
 # comandos para execução
 runfederal: $(EXECUTAVEL)
-	@./$(EXECUTAVEL) --federal candidatos.csv votacao.csv 02/10/2022
+	@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind-out2.txt ./$(EXECUTAVEL) --federal candidatos.csv votacao.csv 02/10/2022
 
 runestadual: $(EXECUTAVEL)
 	@./$(EXECUTAVEL) --estadual candidatos.csv votacao.csv 02/10/2022
