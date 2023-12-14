@@ -1,5 +1,6 @@
 #include "GeraRelatorios.h"
 #include <iostream>
+#include <iomanip>
 #include <locale>
 #include <list>
 
@@ -75,8 +76,8 @@ bool ordernarPartidosPorCandidatoMaisVotado ( Partido& primeiro,  Partido& segun
 
 void GeraRelatorios::geraRelatorio(string tipo_deputado, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
-    //locale brasilLocale("pt_BR.UTF-8");
-    //cout.imbue(brasilLocale);
+   locale brasilLocale("pt_BR.UTF-8");
+   cout.imbue(brasilLocale);
 
     int tipo_deputado_int = 0;
     if (tipo_deputado == "estadual")
@@ -87,6 +88,7 @@ void GeraRelatorios::geraRelatorio(string tipo_deputado, map<int, Candidato> can
     {
         tipo_deputado_int = 6;
     }
+
     geraRelatorio1(tipo_deputado_int, candidatos, partidos);
     geraRelatorio2(tipo_deputado_int, candidatos, partidos);
     geraRelatorio3(tipo_deputado_int, candidatos, partidos);
@@ -159,6 +161,18 @@ void GeraRelatorios::geraRelatorio2(int tipo_deputado_int, map<int, Candidato> c
 
 void GeraRelatorios::geraRelatorio3(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
+    int nr_vagas = 0;
+    
+    for (auto &c : candidatos)
+    {
+        int sc = c.second.getCd_situacao_candidato_tot();
+        int st = c.second.getCd_sit_tot_turno();
+        int td = c.second.getCd_cargo();
+        if ((sc == 2 || sc == 16)&&(st ==2 || st == 3)&&(td == tipo_deputado_int))
+        {
+            nr_vagas++;
+        }
+    }
 
     list<Candidato> ordem; 
     
@@ -191,13 +205,24 @@ void GeraRelatorios::geraRelatorio3(int tipo_deputado_int, map<int, Candidato> c
 
         idx++;        
         
-        if (idx == 31) break;
+        if (idx == nr_vagas+1) break;
     }
 }
 
 void GeraRelatorios::geraRelatorio4(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
-
+    int nr_vagas = 0;
+    
+    for (auto &c : candidatos)
+    {
+        int sc = c.second.getCd_situacao_candidato_tot();
+        int st = c.second.getCd_sit_tot_turno();
+        int td = c.second.getCd_cargo();
+        if ((sc == 2 || sc == 16)&&(st ==2 || st == 3)&&(td == tipo_deputado_int))
+        {
+            nr_vagas++;
+        }
+    }
     list<Candidato> ordem; 
     
     for (auto &c : candidatos)
@@ -230,7 +255,7 @@ void GeraRelatorios::geraRelatorio4(int tipo_deputado_int, map<int, Candidato> c
         }
         idx++;        
         
-        if (idx == 31) break;
+        if (idx == nr_vagas+1) break;
     }
 }
 
@@ -364,7 +389,7 @@ void GeraRelatorios::geraRelatorio7(int tipo_deputado_int, map<int, Candidato> c
         for (auto &c : p.getCandidatos())
         {
             int td = c.second.getCd_cargo();
-            if ((td == tipo_deputado_int))
+            if ((td == tipo_deputado_int) && c.second.getNm_tipo_destinacao_votos() == false)
             {
                 c_ordem.push_back(c.second);
             }
@@ -380,13 +405,14 @@ void GeraRelatorios::geraRelatorio7(int tipo_deputado_int, map<int, Candidato> c
 
         Candidato pior = c_ordem.back();
         
-        
-        while (pior.getQtd_votos() == 0)
+        /*
+        while (pior.getQtd_votos() < 0)
         {
             c_ordem.pop_back();
             pior = c_ordem.back();
         }
-        
+        */
+
         string plural_melhor="";
         if (melhor.getQtd_votos() > 1)
         {
@@ -401,9 +427,9 @@ void GeraRelatorios::geraRelatorio7(int tipo_deputado_int, map<int, Candidato> c
 
         cout << idx << " - ";
         p.imprimePartido();
-        cout << " " << melhor.getNm_urna_candidato() << " (" << melhor.getNr_candidato();
+        cout << " " << melhor.getNm_urna_candidato() << " (" << to_string(melhor.getNr_candidato());
         cout << ", " << melhor.getQtd_votos() << " voto" << plural_melhor <<")" << " / " << pior.getNm_urna_candidato();
-        cout << " (" << pior.getNr_candidato() << ", " << pior.getQtd_votos() << " voto" << plural_pior <<")" << endl;
+        cout << " (" << to_string(pior.getNr_candidato()) << ", " << pior.getQtd_votos() << " voto" << plural_pior <<")" << endl;
         
         idx++;
     }
@@ -411,7 +437,7 @@ void GeraRelatorios::geraRelatorio7(int tipo_deputado_int, map<int, Candidato> c
 
 void GeraRelatorios::geraRelatorio8(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
-    cout << endl << "Eleitos, por faixa etária (na data de eleição):" << endl;
+    cout << endl << "Eleitos, por faixa etária (na data da eleição):" << endl;
 
     int idade_menor_30 = 0;
     int idade_30_40 = 0;
@@ -452,11 +478,11 @@ void GeraRelatorios::geraRelatorio8(int tipo_deputado_int, map<int, Candidato> c
     porcentagem_50_60 = ((double) idade_50_60 / total) * 100;
     porcentagem_maior_60 = ((double) idade_maior_60 / total) * 100;
 
-    cout << "      Idade < 30: " << idade_menor_30 << " (" << porcentagem_menor_30 << "%)" << endl;
-    cout << "30 <= Idade < 40: " << idade_30_40 << " (" << porcentagem_30_40 << "%)" << endl;
-    cout << "40 <= Idade < 50: " << idade_40_50 << " (" << porcentagem_40_50 << "%)" << endl;
-    cout << "50 <= Idade < 60: " << idade_50_60 << " (" << porcentagem_50_60 << "%)" << endl;
-    cout << "60 <= Idade     : " << idade_maior_60 << " (" << porcentagem_maior_60 << "%)" << endl;
+    cout << "      Idade < 30: " << idade_menor_30 << " (" << fixed << setprecision(2) << porcentagem_menor_30 << "%)" << endl;
+    cout << "30 <= Idade < 40: " << idade_30_40 << " (" << fixed << setprecision(2) << porcentagem_30_40 << "%)" << endl;
+    cout << "40 <= Idade < 50: " << idade_40_50 << " (" << fixed << setprecision(2) << porcentagem_40_50 << "%)" << endl;
+    cout << "50 <= Idade < 60: " << idade_50_60 << " (" << fixed << setprecision(2) << porcentagem_50_60 << "%)" << endl;
+    cout << "60 <= Idade     : " << idade_maior_60 << " (" << fixed << setprecision(2) << porcentagem_maior_60 << "%)" << endl;
 }
 
 void GeraRelatorios::geraRelatorio9(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
@@ -485,8 +511,8 @@ void GeraRelatorios::geraRelatorio9(int tipo_deputado_int, map<int, Candidato> c
     porcentagem_feminino = ((double) qtd_feminino / (qtd_feminino + qtd_masculino)) * 100;
 
     cout << "\nEleitos, por gênero:" << endl;
-    cout << "Feminino:  " << qtd_feminino << " (" << porcentagem_feminino << "%)" << endl;
-    cout << "Masculino:  " << qtd_masculino << " (" << porcentagem_masculino << "%)" << endl;
+    cout << "Feminino:  " << qtd_feminino << " (" << fixed << setprecision(2) << porcentagem_feminino << "%)" << endl;
+    cout << "Masculino:  " << qtd_masculino << " (" << fixed << setprecision(2) << porcentagem_masculino << "%)" << endl;
 }
  void GeraRelatorios::geraRelatorio10(int tipo_deputado_int, map<int, Candidato> candidatos, map<int, Partido> partidos)
 {
@@ -508,7 +534,7 @@ void GeraRelatorios::geraRelatorio9(int tipo_deputado_int, map<int, Candidato> c
 
 
     cout << "\nTotal de votos válidos:    " << total_votos_validos << endl;
-    cout << "Total de votos nominais:    " << total_votos_nomimais << " (" << percentual_votos_nomimais << "%)" << endl;
-    cout << "Total de votos de legenda: " << total_votos_legenda << " (" << percentual_votos_legenda << "%)" << endl;
+    cout << "Total de votos nominais:   " << total_votos_nomimais << " (" << fixed << setprecision(2) << percentual_votos_nomimais << "%)" << endl;
+    cout << "Total de votos de legenda: " << total_votos_legenda << " (" << fixed << setprecision(2) << percentual_votos_legenda << "%)" << endl;
 
 }
