@@ -48,7 +48,7 @@ const int &Partido::getNr_partido() const {
     return nr_partido;
 }
 
-const map<int, Candidato> &Partido::getCandidatos() const {
+map<int, Candidato> &Partido::getCandidatos() {
     return candidatos;
 }
 

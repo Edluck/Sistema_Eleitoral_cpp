@@ -82,13 +82,16 @@ void CSVvotacao::votacaoReader(const string &tipo_deputado,const string &arquivo
                         if (candidatos.find(nr_notavel)->second.getNm_tipo_destinacao_votos())
                         {
                             //adiciona votos de legenda ao partido do candidato
-                            partidos[candidatos.find(nr_notavel)->second.getNr_partido()].addVotosLegenda(stoi(linhaSplit[21]));
+                            partidos.find(candidatos.find(nr_notavel)->second.getNr_partido())->second.addVotosLegenda(stoi(linhaSplit[21]));
                         }
                         else
                         {
                             if (candidatos.find(nr_notavel)->second.getCd_situacao_candidato_tot() == 2 || candidatos.find(nr_notavel)->second.getCd_situacao_candidato_tot() == 16)
                             {
                                 candidatos.find(nr_notavel)->second.addVotos(stoi(linhaSplit[21]));
+
+                                //partidos.get(candidatos.get(nr_notavel).getNr_partido()).getCandidatos().get(nr_notavel).addVotos(qt_votos); 
+                                partidos.find(candidatos.find(nr_notavel)->second.getNr_partido())->second.getCandidatos().find(nr_notavel)->second.addVotos(stoi(linhaSplit[21]));
                             }
                         }
                     }

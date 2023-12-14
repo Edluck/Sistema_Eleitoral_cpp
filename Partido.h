@@ -24,7 +24,7 @@ public:
     const string &getSg_partido() const;
     const int &getNr_partido() const;
     void addCandidato(const Candidato &c);
-    const map<int, Candidato> &getCandidatos() const;
+    map<int, Candidato> &getCandidatos() ;
 };
 
 void imprimePartido();
